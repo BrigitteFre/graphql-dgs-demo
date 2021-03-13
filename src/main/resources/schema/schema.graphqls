@@ -11,6 +11,6 @@ type Cocktail {
 
 enum Glass {
     LONGDRINK
-    TUMBLR
+    TUMBLER
     MARTINI
 }
