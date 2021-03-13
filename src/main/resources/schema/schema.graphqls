@@ -1,0 +1,16 @@
+type Query {
+    cocktails(nameFilter: String): [Cocktail]
+}
+
+type Cocktail {
+    name: String
+    glass: Glass
+    ingredients: [String]
+    alcoholic: Boolean
+}
+
+enum Glass {
+    LONGDRINK
+    TUMBLR
+    MARTINI
+}
