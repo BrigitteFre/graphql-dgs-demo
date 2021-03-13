@@ -11,9 +11,19 @@ import com.netflix.graphql.dgs.InputArgument
 class CocktailsDataFetcher {
 
     private val cocktailList = listOf(
-        Cocktail(name = "Pina Colada", glass = Glass.LONGDRINK, ingredients = listOf("pineapple juice", "rum", "coconut milk"), alcoholic = true),
+        Cocktail(
+            name = "Pina colada",
+            glass = Glass.LONGDRINK,
+            ingredients = listOf("pineapple juice", "rum", "coconut milk"),
+            alcoholic = true
+        ),
         Cocktail(name = "Martini", glass = Glass.MARTINI, ingredients = listOf("vermouth", "gin"), alcoholic = true),
-        Cocktail(name = "Old fashioned", glass = Glass.TUMBLR, ingredients = listOf("bourbon", "sugar sirup", "Angostura bitters"), alcoholic = true)
+        Cocktail(
+            name = "Old fashioned",
+            glass = Glass.TUMBLER,
+            ingredients = listOf("bourbon", "sugar sirup", "Angostura bitters"),
+            alcoholic = true
+        )
     )
 
     /**
