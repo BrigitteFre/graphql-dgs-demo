@@ -3,6 +3,7 @@ type Query {
 }
 
 type Cocktail {
+    id: ID!
     name: String
     glass: Glass
     ingredients: [String]
