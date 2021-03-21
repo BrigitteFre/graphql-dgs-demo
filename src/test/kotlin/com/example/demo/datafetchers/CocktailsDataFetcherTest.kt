@@ -1,8 +1,11 @@
 package com.example.demo.datafetchers
 
+import com.example.demo.generated.client.CocktailsGraphQLQuery
+import com.example.demo.generated.client.CocktailsProjectionRoot
 import com.example.demo.services.IngredientsService
 import com.netflix.graphql.dgs.DgsQueryExecutor
 import com.netflix.graphql.dgs.autoconfig.DgsAutoConfiguration
+import com.netflix.graphql.dgs.client.codegen.GraphQLQueryRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -28,31 +31,18 @@ class CocktailsDataFetcherTest {
 
     @Test
     fun cocktails() {
-        val cocktailNames: List<String> = dgsQueryExecutor.executeAndExtractJsonPath(
-            """
-            {
-                cocktails {
-                    name
-                }
-            }
-        """.trimIndent(), "data.cocktails[*].name"
+        val graphQLQueryRequest = GraphQLQueryRequest(
+            CocktailsGraphQLQuery.Builder()
+                .nameFilter("Pina colada")
+                .build(),
+            CocktailsProjectionRoot().ingredients()
         )
 
-        assertThat(cocktailNames).contains("Pina colada")
-    }
-
-    @Test
-    fun ingredients() {
-        val ingredientsList: List<String> = dgsQueryExecutor.executeAndExtractJsonPath(
-            """
-            {
-                cocktails(nameFilter: "Pina colada") {
-                    ingredients
-                }
-            }
-        """.trimIndent(), "data.cocktails[*].ingredients[*]"
+        val result = dgsQueryExecutor.executeAndExtractJsonPath<List<String>>(
+            graphQLQueryRequest.serialize(), "data.cocktails[*].ingredients[*]"
         )
 
-        assertThat(ingredientsList).contains("rum")
+        assertThat(result).contains("rum")
     }
+
 }
